@@ -49,7 +49,7 @@ src/main
     │   │   └── mybatis-config.xml  # DB 접속 정보 및 Mapper XML 등록
     │   └── views/                  # JSP 뷰 파일
     └── resources/                  # 정적 리소스 (CSS, JS, Images)
-
+```
 🔑 Key Features
 👤 1. 회원 및 계정 관리 (Auth & User System)
 회원가입 및 세션 로그인: 세션(Session) 기반 사용자 인증 상태 관리
