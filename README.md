@@ -1,143 +1,285 @@
-# 🎮 PLAY_GROUND
+# 🎵 PLAY_GROUND
 
-> **Java Servlet/JSP & MyBatis 기반의 사용자 커뮤니티 및 관리자 종합 운영 플랫폼**
+> **음악을 좋아하는 사람들이 모여 음악을 공유하고, 이야기하며 소통할 수 있는 커뮤니티 플랫폼**
+
+**PLAY_GROUND**는 음악이라는 공통 관심사를 중심으로
+사용자들이 자유롭게 콘텐츠를 공유하고 서로 소통할 수 있도록 제작한 **음악 커뮤니티 웹 서비스**입니다.
+
+회원가입부터 게시글 작성, 댓글, 좋아요, 사용자 차단 등의 커뮤니티 기능을 제공하며,
+관리자를 위한 게시판·카테고리 관리와 신고 처리 등의 운영 기능까지 구현했습니다.
+
+단순한 게시판 구현을 넘어 **사용자 서비스와 관리자 시스템을 함께 설계하고 개발하는 것을 목표**로 진행한 팀 프로젝트입니다.
+
+<br>
+
+## 🎧 Project
+
+### 🎼 "좋아하는 음악을 공유하고, 음악으로 소통하다."
+
+음악을 듣는 것에서 그치지 않고,
+
+**좋아하는 음악을 발견하고 → 공유하고 → 이야기를 나누고 → 새로운 음악을 발견하는**
+
+선순환적인 커뮤니티 경험을 제공하는 것을 목표로 했습니다.
+
+사용자는 다양한 게시판에서 자유롭게 음악과 관련된 콘텐츠를 공유할 수 있으며,
+게시글과 댓글을 통해 다른 사용자들과 의견을 나눌 수 있습니다.
+
+또한 관리자는 서비스 운영에 필요한 게시판 및 카테고리 관리,
+신고 처리와 회원 관리 기능을 통해 안정적인 커뮤니티 운영이 가능하도록 구성했습니다.
 
 ---
 
-## 📌 Project Overview
+## ✨ 주요 기능
 
-**PLAY_GROUND**는 Java Servlet과 MyBatis Persistence Framework를 활용하여 구축된 웹 커뮤니티 서비스입니다.  
-MVC 패턴 및 계층형 아키텍처(Servlet Controller - Service - DAO - Mapper XML)를 준수하여 설계되었으며, 일반 사용자의 커뮤니티 활동(게시글/댓글 작성, 좋아요, 유저 차단)부터 관리자의 서비스 운영 기능(동적 카테고리/게시판 관리, 신고 처리, 불량 회원 강제 탈퇴)까지 체계적으로 구현되어 있습니다.
+### 👤 회원 & 계정 관리
+
+* 회원가입 / 로그인
+* 세션 기반 사용자 인증
+* 아이디 찾기
+* 비밀번호 찾기 및 재설정
+* 회원정보 수정
+* 회원 탈퇴
+* 사용자 차단 및 차단 목록 관리
+
+### 📝 커뮤니티
+
+* 카테고리별 게시판
+* 게시글 CRUD
+* 댓글 작성 및 관리
+* 게시글 좋아요
+* 통합 검색
+* 내가 작성한 게시글 조회
+* 내가 작성한 댓글 조회
+* 좋아요한 게시글 조회
+
+### 🔎 검색
+
+* 전체 게시판 통합 검색
+* 게시글 및 콘텐츠 검색
+* 검색 결과 페이징
+
+### 🛡️ 관리자
+
+* 카테고리 생성 / 수정 / 삭제
+* 게시판 생성 / 수정 / 삭제
+* 게시판 관리
+* 신고 접수 및 처리
+* 운영자 권한 관리
+* 문제 회원 강제 탈퇴
 
 ---
 
-## 🛠 Tech Stack
+## 🏗️ Architecture
 
-### Backend & Database
-- **Language**: Java
-- **Web Framework / API**: Jakarta Servlet, JSP
-- **Persistence Framework**: MyBatis 3.x
-- **Database**: MySQL (`music` DB)
-- **WAS / Server**: Apache Tomcat
+```text
+┌─────────────────────────────────────────────┐
+│                  Client                     │
+│          HTML / CSS / JavaScript            │
+└──────────────────────┬──────────────────────┘
+                       │
+                 HTTP / AJAX
+                       │
+┌──────────────────────▼──────────────────────┐
+│                 Controller                  │
+│          Servlet / Request 처리             │
+└──────────────────────┬──────────────────────┘
+                       │
+┌──────────────────────▼──────────────────────┐
+│                  Service                    │
+│             Business Logic                  │
+└──────────────────────┬──────────────────────┘
+                       │
+┌──────────────────────▼──────────────────────┐
+│                    DAO                       │
+│             MyBatis Mapper                  │
+└──────────────────────┬──────────────────────┘
+                       │
+┌──────────────────────▼──────────────────────┐
+│                   MySQL                     │
+│                music Database               │
+└─────────────────────────────────────────────┘
+```
 
-### Frontend & Communication
-- **Frontend**: HTML5, CSS3, JavaScript (ES6+)
-- **Data Exchange**: JSON, AJAX / Fetch API
+MVC 패턴을 기반으로 **Controller → Service → DAO → MyBatis Mapper**의 계층형 구조로 설계하여 각 계층의 역할을 분리했습니다.
 
 ---
 
-## 📂 Project Structure (`src/main`)
+## 🛠️ Tech Stack
+
+### Backend
+
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge\&logo=openjdk\&logoColor=white)
+![Servlet](https://img.shields.io/badge/Jakarta%20Servlet-6DB33F?style=for-the-badge)
+![JSP](https://img.shields.io/badge/JSP-323330?style=for-the-badge)
+![MyBatis](https://img.shields.io/badge/MyBatis-000000?style=for-the-badge)
+
+### Frontend
+
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge\&logo=html5\&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge\&logo=css3\&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge\&logo=javascript\&logoColor=black)
+
+### Database & Server
+
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge\&logo=mysql\&logoColor=white)
+![Apache Tomcat](https://img.shields.io/badge/Apache%20Tomcat-F8DC75?style=for-the-badge\&logo=apachetomcat\&logoColor=black)
+
+### Communication
+
+* JSON
+* AJAX
+* Fetch API
+
+---
+
+## 📂 Project Structure
 
 ```text
 src/main
 ├── java/kr/kh/app
-│   ├── controller/      # HTTP 요청 처리 및 View/JSON 응답 Servlet
+│   ├── config/          # 프로젝트 및 DB 설정
+│   ├── controller/      # HTTP 요청 및 응답 처리
 │   ├── dao/             # MyBatis Mapper 인터페이스
-│   │   ├── BoardDAO.java
-│   │   ├── CategoryDAO.java
-│   │   ├── CommonDAO.java
-│   │   ├── PostDAO.java
-│   │   ├── ReportDAO.java
-│   │   └── UserDAO.java
-│   ├── model/vo/        # 데이터베이스 엔티티 (VO / DTO)
-│   ├── service/         # 비즈니스 로직 처리 Service 계층
-│   └── pagination/      # 페이징 및 검색 처리 유틸리티
+│   ├── filter/          # 요청 필터
+│   ├── model/           # VO / DTO
+│   ├── pagination/      # 페이징 및 검색 처리
+│   ├── service/         # 비즈니스 로직
+│   └── utils/            # 공통 유틸리티
 │
 └── webapp
     ├── WEB-INF
-    │   ├── classes/
-    │   │   └── mybatis-config.xml  # DB 접속 정보 및 Mapper XML 등록
-    │   └── views/                  # JSP 뷰 파일
-    └── resources/                  # 정적 리소스 (CSS, JS, Images)
+    │   └── views/       # JSP View
+    │
+    ├── css/             # 스타일시트
+    ├── images/          # 이미지 리소스
+    └── resources/       # 정적 리소스
 ```
-🔑 Key Features
-👤 1. 회원 및 계정 관리 (Auth & User System)
-회원가입 및 세션 로그인: 세션(Session) 기반 사용자 인증 상태 관리
 
-계정 찾기 & 재설정: 아이디 찾기(/findId), 비밀번호 찾기(/findPw), 비밀번호 재설정(/newPw)
+---
 
-계정 관리: 회원정보 수정, 회원 탈퇴(/deleteid), 차단 사용자 목록 관리(blocklist)
+## 🔄 주요 사용자 흐름
 
-📝 2. 게시판 및 커뮤니티 (Board & Content)
-게시판 CRUD: 카테고리별 게시글 목록 조회, 상세 보기, 게시글 작성/수정/삭제
+```text
+회원가입
+   ↓
+로그인
+   ↓
+게시판 선택
+   ↓
+게시글 조회 / 검색
+   ↓
+게시글 작성 ──────→ 댓글 작성
+   │
+   └──────────────→ 좋아요
+                         ↓
+                    마이페이지
+```
 
-통합 검색: 전체 게시판 대상 키워드 검색 (/totalSearchList)
+관리자의 경우 별도의 관리자 페이지를 통해
 
-활동 관리: 내가 쓴 글, 작성한 댓글, '좋아요' 누른 게시글 모아보기
+```text
+관리자 로그인
+     ↓
+관리자 페이지
+     ├── 카테고리 관리
+     ├── 게시판 관리
+     ├── 신고 관리
+     ├── 운영자 관리
+     └── 회원 관리
+```
 
-🛡️ 3. 관리자 시스템 (Admin Portal)
-동적 카테고리/게시판 관리: 신규 카테고리 및 게시판 생성, 수정, 삭제
+와 같은 서비스 운영이 가능하도록 구현했습니다.
 
-신고 처리 모니터링: 신고 접수 목록 조회 및 상세 내역 검토 (/admin/boardReportList)
+---
 
-운영자 및 회원 제어: 운영자 권한 관리 및 서비스 정책 위반 회원 강제 탈퇴 (/admin/forceout)
+## 🗄️ Persistence Layer
 
-🗺️ Information Architecture (URL Structure)
+MyBatis를 활용하여 데이터 접근 계층을 분리하고,
+기능별 Mapper XML을 구성하여 SQL의 유지보수성을 높였습니다.
 
-/ (Main Page)
-├── Auth
-│   ├── /login
-│   ├── /signup
-│   ├── /findId
-│   ├── /findPw
-│   └── /newPw
-│
-├── Board (/board)
-│   ├── /list?게시판번호
-│   ├── /post/insert
-│   ├── /post/detail?게시글번호
-│   ├── /post/update?게시글번호
-│   └── /totalSearchList
-│
-├── MyPage (/mypage)
-│   ├── /postlist (내가 쓴 글)
-│   ├── /commentlist (내가 쓴 댓글)
-│   ├── /likelist (좋아요 누른 글)
-│   ├── /signupdate (회원정보 수정)
-│   ├── /blocklist (차단 사용자 목록)
-│   └── /deleteid (회원 탈퇴)
-│
-└── Admin (/admin)
-    ├── /categoryinsert, /categoryupdate (카테고리 관리)
-    ├── /boardinsert, /boardupdate (게시판 관리)
-    ├── /boardReport, /boardReportList (신고 관리)
-    ├── /adminmanager (운영자 관리)
-    └── /forceout (회원 강제 탈퇴)
+```text
+UserMapper.xml
+ └─ 회원 인증 / 마이페이지 / 차단 / 탈퇴
 
-⚙️ Persistence Layer (MyBatis Configuration)
-mybatis-config.xml 설정을 통해 DB 커넥션 풀(POOLED)을 관리하며, 기능별로 분리된 6개의 Mapper XML을 사용하여 SQL을 유지보수합니다.
+PostMapper.xml
+ └─ 게시글 CRUD / 좋아요 / 통합검색
 
-UserMapper.xml: 회원 인증, 마이페이지, 차단 및 탈퇴
+BoardMapper.xml
+ └─ 게시판 조회 / 게시판 관리
 
-PostMapper.xml: 게시글 CRUD, 좋아요, 통합 검색
+CategoryMapper.xml
+ └─ 카테고리 CRUD
 
-BoardMapper.xml: 게시판 정보 및 관리자용 게시판 설정
+ReportMapper.xml
+ └─ 신고 접수 / 신고 처리
 
-CategoryMapper.xml: 카테고리 CRUD
+CommonMapper.xml
+ └─ 공통 데이터 처리
+```
 
-ReportMapper.xml: 신고 내역 접수 및 처리
+---
 
-CommonMapper.xml: 공통 유틸리티 및 데이터 처리
+## 💡 프로젝트를 통해
 
-🚀 Getting Started
-Prerequisites
-Java 11 이상 (또는 JDK 17)
+이번 프로젝트에서는 단순히 기능을 구현하는 것뿐만 아니라,
 
-Apache Tomcat 9.0 / 10.0
+* MVC 기반 웹 애플리케이션 구조 이해
+* Servlet/JSP 기반 웹 서비스 개발
+* Service / DAO 계층 분리
+* MyBatis를 활용한 데이터 접근
+* 사용자 인증 및 세션 관리
+* 게시판 CRUD 구현
+* AJAX / Fetch API를 활용한 비동기 통신
+* 검색 및 페이징 처리
+* 관리자 시스템 설계
+* 팀원 간 Git을 활용한 협업
 
-MySQL 8.0 이상
+등 **실제 웹 서비스 개발 과정에서 필요한 전반적인 개발 경험**을 쌓는 것을 목표로 했습니다.
 
-Installation
-1. Repository Clone
+---
 
-git clone [https://github.com/seungjoo555/PLAY_GROUND.git](https://github.com/seungjoo555/PLAY_GROUND.git)
+## 👥 Team Project
 
-2. Database Configuration
+**PLAY_GROUND**는 팀원들과 함께 기획부터 설계, 개발까지 진행한 프로젝트입니다.
 
-MySQL에서 music 데이터베이스 생성
+각자의 담당 기능을 개발하면서 Git을 활용한 소스 코드 관리와
+팀원 간의 코드 공유 및 협업 과정을 경험했습니다.
 
-mybatis-config.xml 내 데이터베이스 접속 주소, ID/PW 설정
+> **"음악을 좋아하는 사람들이 더 쉽게 만나고, 이야기하고, 공유할 수 있는 공간"**
 
-3. Run Application
+이라는 목표를 가지고 팀원들과 함께 완성한 프로젝트입니다.
 
-IDE(Eclipse/IntelliJ)에 Apache Tomcat Server 연동 후 프로젝트 실행
+---
+
+## 🚀 Getting Started
+
+### 1. Clone
+
+```bash
+git clone https://github.com/seungjoo555/PLAY_GROUND.git
+```
+
+### 2. Database
+
+MySQL에서 `music` 데이터베이스를 생성한 후
+프로젝트의 MyBatis 설정 파일에서 DB 접속 정보를 설정합니다.
+
+### 3. Run
+
+Eclipse 또는 IntelliJ에 프로젝트를 Import한 후
+Apache Tomcat을 연결하여 애플리케이션을 실행합니다.
+
+---
+
+## 🔗 Repository
+
+[![GitHub](https://img.shields.io/badge/GitHub-PLAY__GROUND-181717?style=for-the-badge\&logo=github)](https://github.com/seungjoo555/PLAY_GROUND)
+
+---
+
+<p align="center">
+  🎵 <b>PLAY_GROUND</b> 🎵
+  <br>
+  <sub>Music · Community · Communication</sub>
+</p>
